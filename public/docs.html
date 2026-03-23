@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation — LogiSense</title>
+  <meta name="description" content="LogiSense API documentation with endpoints, authentication, and code examples.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .docs { padding: 120px 0 80px; }
+    .docs__layout { display: grid; grid-template-columns: 240px 1fr; gap: 48px; }
+    .docs__sidebar { position: sticky; top: 100px; height: fit-content; }
+    .docs__sidebar a { display: block; padding: 8px 16px; color: var(--text-secondary); font-size: 0.85rem; border-left: 2px solid var(--border); transition: all 0.2s; }
+    .docs__sidebar a:hover, .docs__sidebar a.active { color: var(--accent-end); border-color: var(--accent-start); background: rgba(99,102,241,0.05); }
+    .docs__sidebar h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 20px 0 8px 16px; }
+    .docs__section { margin-bottom: 64px; scroll-margin-top: 100px; }
+    .docs__section h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; }
+    .docs__section h3 { font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; color: var(--text-primary); }
+    .docs__section p { color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7; }
+    .endpoint { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px; }
+    .endpoint__method { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; margin-right: 12px; }
+    .endpoint__method--get { background: rgba(34,197,94,0.15); color: var(--success); }
+    .endpoint__method--post { background: rgba(99,102,241,0.15); color: var(--accent-end); }
+    .endpoint__path { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-primary); }
+    .endpoint__desc { color: var(--text-secondary); font-size: 0.9rem; margin-top: 12px; }
+    pre.docs-code { background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.7; color: var(--text-secondary); margin: 12px 0 20px; }
+    .docs-code .code-comment { color: var(--text-muted); }
+    .param-table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.85rem; }
+    .param-table th { text-align: left; padding: 10px 12px; background: var(--bg-tertiary); color: var(--text-muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+    .param-table code { background: var(--bg-primary); padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; color: var(--accent-end); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+    .badge--required { background: rgba(239,68,68,0.15); color: var(--error); }
+    .badge--optional { background: rgba(113,113,122,0.15); color: var(--text-muted); }
+    @media (max-width: 768px) { .docs__layout { grid-template-columns: 1fr; } .docs__sidebar { display: none; } }
+  </style>
+</head>
+<body>
+  <nav class="nav nav--scrolled">
+    <div class="nav__container">
+      <a href="/" class="nav__logo"><span class="nav__logo-icon">◆</span> LogiSense</a>
+      <div class="nav__links">
+        <a href="/">Home</a>
+        <a href="#auth">Auth</a>
+        <a href="#deliveries">Deliveries</a>
+        <a href="#insights">Insights</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="docs">
+    <div class="container">
+      <div class="docs__layout">
+        <aside class="docs__sidebar">
+          <h4>Getting Started</h4>
+          <a href="#overview" class="active">Overview</a>
+          <a href="#auth">Authentication</a>
+          <a href="#errors">Errors</a>
+          <h4>Endpoints</h4>
+          <a href="#register">Register Client</a>
+          <a href="#deliveries">Deliveries</a>
+          <a href="#insights">Insights</a>
+          <a href="#usage">Usage</a>
+          <a href="#health">Health</a>
+          <h4>Real-time</h4>
+          <a href="#websocket">WebSocket</a>
+        </aside>
+
+        <main>
+          <div class="docs__section" id="overview">
+            <h2>API Overview</h2>
+            <p>LogiSense is a REST + WebSocket API that transforms raw delivery events into AI-powered intelligence. Base URL:</p>
+            <pre class="docs-code">https://your-domain.com/api/v1</pre>
+            <p>All responses follow this format:</p>
+            <pre class="docs-code">{
+  "success": true,
+  "data": { ... }
+}</pre>
+          </div>
+
+          <div class="docs__section" id="auth">
+            <h2>Authentication</h2>
+            <p>All authenticated endpoints require your API key in the <code>X-API-Key</code> header:</p>
+            <pre class="docs-code">curl -H "X-API-Key: ls_your_api_key_here" \
+  https://your-domain.com/api/v1/deliveries</pre>
+            <p>Rate limits are returned in response headers:</p>
+            <table class="param-table">
+              <tr><th>Header</th><th>Description</th></tr>
+              <tr><td><code>X-RateLimit-Limit</code></td><td>Monthly call limit for your tier</td></tr>
+              <tr><td><code>X-RateLimit-Remaining</code></td><td>Remaining calls this month</td></tr>
+              <tr><td><code>X-RateLimit-Tier</code></td><td>Your current plan tier</td></tr>
+            </table>
+          </div>
+
+          <div class="docs__section" id="errors">
+            <h2>Error Handling</h2>
+            <pre class="docs-code">{
+  "error": "Validation Error",
+  "message": "externalId is required"
+}</pre>
+            <table class="param-table">
+              <tr><th>Status</th><th>Meaning</th></tr>
+              <tr><td>400</td><td>Bad Request — validation failed</td></tr>
+              <tr><td>401</td><td>Unauthorized — invalid or missing API key</td></tr>
+              <tr><td>404</td><td>Not Found</td></tr>
+              <tr><td>409</td><td>Conflict — duplicate resource</td></tr>
+              <tr><td>429</td><td>Rate Limit Exceeded</td></tr>
+              <tr><td>500</td><td>Internal Server Error</td></tr>
+            </table>
+          </div>
+
+          <div class="docs__section" id="register">
+            <h2>Register Client</h2>
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--post">POST</span>
+              <span class="endpoint__path">/api/v1/clients/register</span>
+              <p class="endpoint__desc">Create a new client account and receive your API key. No authentication required.</p>
+            </div>
+            <h3>Request Body</h3>
+            <table class="param-table">
+              <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+              <tr><td><code>name</code></td><td>string</td><td><span class="badge badge--required">required</span></td><td>Your name or org name</td></tr>
+              <tr><td><code>email</code></td><td>string</td><td><span class="badge badge--required">required</span></td><td>Contact email</td></tr>
+              <tr><td><code>company</code></td><td>string</td><td><span class="badge badge--optional">optional</span></td><td>Company name</td></tr>
+              <tr><td><code>tier</code></td><td>string</td><td><span class="badge badge--optional">optional</span></td><td>free, starter, or growth</td></tr>
+            </table>
+            <pre class="docs-code"><span class="code-comment"># Register</span>
+curl -X POST http://localhost:3000/api/v1/clients/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Acme Corp","email":"dev@acme.com","tier":"free"}'
+
+<span class="code-comment"># Response</span>
+{
+  "success": true,
+  "data": {
+    "id": "uuid",
+    "apiKey": "ls_abc123...",
+    "tier": "free"
+  }
+}</pre>
+          </div>
+
+          <div class="docs__section" id="deliveries">
+            <h2>Deliveries</h2>
+
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--post">POST</span>
+              <span class="endpoint__path">/api/v1/deliveries</span>
+              <p class="endpoint__desc">Ingest a single delivery event. Creates or updates the delivery.</p>
+            </div>
+            <table class="param-table">
+              <tr><th>Field</th><th>Type</th><th>Required</th></tr>
+              <tr><td><code>externalId</code></td><td>string</td><td><span class="badge badge--required">required</span></td></tr>
+              <tr><td><code>status</code></td><td>string</td><td><span class="badge badge--required">required</span></td></tr>
+              <tr><td><code>latitude</code></td><td>number</td><td><span class="badge badge--optional">optional</span></td></tr>
+              <tr><td><code>longitude</code></td><td>number</td><td><span class="badge badge--optional">optional</span></td></tr>
+              <tr><td><code>driverName</code></td><td>string</td><td><span class="badge badge--optional">optional</span></td></tr>
+              <tr><td><code>estimatedDeliveryTime</code></td><td>ISO 8601</td><td><span class="badge badge--optional">optional</span></td></tr>
+            </table>
+            <p>Valid statuses: <code>picked_up</code>, <code>in_transit</code>, <code>out_for_delivery</code>, <code>delivered</code>, <code>failed</code>, <code>returned</code>, <code>delayed</code></p>
+
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--post">POST</span>
+              <span class="endpoint__path">/api/v1/deliveries/batch</span>
+              <p class="endpoint__desc">Ingest up to 100 delivery events in a single call.</p>
+            </div>
+
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/api/v1/deliveries</span>
+              <p class="endpoint__desc">List deliveries with pagination and filters.</p>
+            </div>
+
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/api/v1/deliveries/:id</span>
+              <p class="endpoint__desc">Get delivery detail with full event timeline.</p>
+            </div>
+          </div>
+
+          <div class="docs__section" id="insights">
+            <h2>Insights</h2>
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/api/v1/insights/:deliveryId</span>
+              <p class="endpoint__desc">Get AI-powered risk scoring, anomaly detection, and ETA prediction for a delivery.</p>
+            </div>
+            <pre class="docs-code"><span class="code-comment"># Response</span>
+{
+  "success": true,
+  "data": {
+    "aiAnalysis": {
+      "riskScore": 73,
+      "riskLevel": "high",
+      "anomalyFlags": ["Route deviation detected"],
+      "summary": "Delivery is at high risk..."
+    },
+    "anomalyDetection": {
+      "hasAnomalies": true,
+      "severity": "medium",
+      "anomalies": [...]
+    },
+    "etaPrediction": {
+      "estimatedMinutes": 45,
+      "confidence": 0.82,
+      "correctionMinutes": 30
+    }
+  }
+}</pre>
+
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/api/v1/insights/summary/batch</span>
+              <p class="endpoint__desc">Get an executive-level batch summary with recommendations.</p>
+            </div>
+          </div>
+
+          <div class="docs__section" id="usage">
+            <h2>Usage</h2>
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/api/v1/usage</span>
+              <p class="endpoint__desc">Get current month usage, billing info, and available plans.</p>
+            </div>
+          </div>
+
+          <div class="docs__section" id="health">
+            <h2>Health</h2>
+            <div class="endpoint">
+              <span class="endpoint__method endpoint__method--get">GET</span>
+              <span class="endpoint__path">/health</span>
+              <p class="endpoint__desc">Health check with database connectivity status. No authentication required.</p>
+            </div>
+          </div>
+
+          <div class="docs__section" id="websocket">
+            <h2>WebSocket Tracking</h2>
+            <p>Connect to the WebSocket endpoint for real-time delivery updates:</p>
+            <pre class="docs-code">ws://your-domain.com/ws/tracking?apiKey=YOUR_API_KEY</pre>
+            <h3>Subscribe to a Delivery</h3>
+            <pre class="docs-code">ws.send(JSON.stringify({ 
+  type: "subscribe", 
+  deliveryId: "DELIVERY_UUID" 
+}));</pre>
+            <h3>Incoming Messages</h3>
+            <pre class="docs-code"><span class="code-comment">// Delivery update</span>
+{
+  "type": "delivery_update",
+  "deliveryId": "uuid",
+  "externalId": "DEL-001",
+  "status": "out_for_delivery",
+  "timestamp": "2025-01-15T14:30:00Z"
+}</pre>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2025 LogiSense. Built with ❤️ for logistics.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

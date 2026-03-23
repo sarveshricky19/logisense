@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogiSense — Last-Mile Delivery Intelligence API</title>
+  <meta name="description" content="AI-powered logistics intelligence API for anomaly detection, risk scoring, and dynamic ETA prediction. Built for D2C brands and logistics startups.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav__container">
+      <a href="/" class="nav__logo">
+        <span class="nav__logo-icon">◆</span>
+        LogiSense
+      </a>
+      <div class="nav__links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="docs.html">Docs</a>
+        <a href="#cta" class="btn btn--sm btn--primary">Get API Key</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+      <div class="hero__grid"></div>
+    </div>
+    <div class="container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Now in Public Beta
+        </div>
+        <h1 class="hero__title">
+          Last-Mile Delivery<br>
+          <span class="hero__title-gradient">Intelligence API</span>
+        </h1>
+        <p class="hero__subtitle">
+          Predict delivery failures before they happen. AI-powered anomaly detection, 
+          dynamic ETA correction, and natural language insights — in a single API call.
+        </p>
+        <div class="hero__cta">
+          <a href="#cta" class="btn btn--lg btn--primary">
+            Start Free — 500 calls/month
+            <span class="btn__arrow">→</span>
+          </a>
+          <a href="docs.html" class="btn btn--lg btn--ghost">
+            View API Docs
+          </a>
+        </div>
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <span class="hero__stat-value">&lt;100ms</span>
+            <span class="hero__stat-label">Response SLA</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">99.9%</span>
+            <span class="hero__stat-label">Uptime</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">AI</span>
+            <span class="hero__stat-label">Powered Insights</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero__code">
+        <div class="code-window">
+          <div class="code-window__header">
+            <div class="code-window__dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="code-window__title">API Response</span>
+          </div>
+          <pre class="code-window__body"><code>{
+  <span class="code-key">"riskScore"</span>: <span class="code-num">73</span>,
+  <span class="code-key">"riskLevel"</span>: <span class="code-str">"high"</span>,
+  <span class="code-key">"anomalyFlags"</span>: [
+    <span class="code-str">"Delivery delayed 45min past ETA"</span>,
+    <span class="code-str">"Route deviation detected"</span>
+  ],
+  <span class="code-key">"etaPrediction"</span>: {
+    <span class="code-key">"correctionMinutes"</span>: <span class="code-num">+52</span>,
+    <span class="code-key">"confidence"</span>: <span class="code-num">0.87</span>
+  },
+  <span class="code-key">"summary"</span>: <span class="code-str">"Delivery DEL-4829 is at 
+  high risk of failure. Driver has deviated 
+  from optimal route. Recommend dispatching 
+  backup driver within 30 minutes."</span>
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Capabilities</span>
+        <h2 class="section-title">Intelligence at Every Delivery Touchpoint</h2>
+        <p class="section-subtitle">One API call returns risk scores, anomaly detection, ETA correction, and plain-language summaries — replacing manual monitoring entirely.</p>
+      </div>
+      <div class="features__grid">
+        <div class="feature-card feature-card--highlighted">
+          <div class="feature-card__icon">🎯</div>
+          <h3 class="feature-card__title">AI Risk Scoring</h3>
+          <p class="feature-card__desc">Every delivery gets a 0–100 failure probability score using Claude AI analysis of status patterns, timing, and route history.</p>
+          <div class="feature-card__tag">Claude AI</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">⚡</div>
+          <h3 class="feature-card__title">Anomaly Detection</h3>
+          <p class="feature-card__desc">Statistical analysis catches invalid status transitions, impossible speeds, and timing anomalies in real-time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🕐</div>
+          <h3 class="feature-card__title">Dynamic ETA</h3>
+          <p class="feature-card__desc">ETA predictions that self-correct using historical transit times, time-of-day patterns, and current delivery state.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">📡</div>
+          <h3 class="feature-card__title">Real-time WebSocket</h3>
+          <p class="feature-card__desc">Subscribe to delivery updates via WebSocket. Get instant status changes, risk alerts, and ETA corrections pushed to your app.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">💬</div>
+          <h3 class="feature-card__title">Natural Language Summaries</h3>
+          <p class="feature-card__desc">Every insight includes a human-readable summary. Show your ops team what's happening without building dashboards.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">📊</div>
+          <h3 class="feature-card__title">Batch Analysis</h3>
+          <p class="feature-card__desc">Analyze entire delivery runs at once. Get executive-level summaries, pattern detection, and actionable recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Integration</span>
+        <h2 class="section-title">Three Steps to Intelligence</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step__number">01</div>
+          <div class="step__content">
+            <h3>Push Delivery Events</h3>
+            <p>Send your delivery status updates via our REST API. We accept single events or batches of up to 100.</p>
+            <div class="step__code">
+              <code>POST /api/v1/deliveries</code>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">02</div>
+          <div class="step__content">
+            <h3>Get AI Insights</h3>
+            <p>Request intelligence on any delivery. We combine AI risk scoring, anomaly detection, and ETA prediction.</p>
+            <div class="step__code">
+              <code>GET /api/v1/insights/:id</code>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__number">03</div>
+          <div class="step__content">
+            <h3>Subscribe to Updates</h3>
+            <p>Connect via WebSocket for real-time delivery tracking and instant alert notifications.</p>
+            <div class="step__code">
+              <code>ws://api/ws/tracking</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Pricing</span>
+        <h2 class="section-title">Usage-Based. No Surprises.</h2>
+        <p class="section-subtitle">Start free, scale as you grow. No contracts, no setup fees.</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing-card">
+          <div class="pricing-card__header">
+            <h3 class="pricing-card__name">Free</h3>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount">₹0</span>
+              <span class="pricing-card__period">/month</span>
+            </div>
+          </div>
+          <ul class="pricing-card__features">
+            <li>500 API calls / month</li>
+            <li>AI-powered insights</li>
+            <li>Anomaly detection</li>
+            <li>WebSocket tracking</li>
+            <li>Community support</li>
+          </ul>
+          <a href="#cta" class="btn btn--outline btn--full">Get Started Free</a>
+        </div>
+        <div class="pricing-card pricing-card--popular">
+          <div class="pricing-card__badge">Most Popular</div>
+          <div class="pricing-card__header">
+            <h3 class="pricing-card__name">Starter</h3>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount">₹999</span>
+              <span class="pricing-card__period">/month</span>
+            </div>
+          </div>
+          <ul class="pricing-card__features">
+            <li>10,000 API calls / month</li>
+            <li>Everything in Free</li>
+            <li>Batch analysis</li>
+            <li>Priority support</li>
+            <li>Usage dashboard</li>
+          </ul>
+          <a href="#cta" class="btn btn--primary btn--full">Start Starter Plan</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card__header">
+            <h3 class="pricing-card__name">Growth</h3>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount">₹3,999</span>
+              <span class="pricing-card__period">/month</span>
+            </div>
+          </div>
+          <ul class="pricing-card__features">
+            <li>100,000 API calls / month</li>
+            <li>Everything in Starter</li>
+            <li>Custom anomaly rules</li>
+            <li>Dedicated support</li>
+            <li>SLA guarantee</li>
+          </ul>
+          <a href="#cta" class="btn btn--outline btn--full">Start Growth Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <div class="cta__card">
+        <div class="cta__bg-orb"></div>
+        <h2 class="cta__title">Ready to predict delivery failures?</h2>
+        <p class="cta__subtitle">Get your API key in 30 seconds. No credit card required.</p>
+        <form class="cta__form" id="register-form">
+          <div class="cta__form-row">
+            <input type="text" id="reg-name" placeholder="Your name" required class="input">
+            <input type="email" id="reg-email" placeholder="Email address" required class="input">
+          </div>
+          <div class="cta__form-row">
+            <input type="text" id="reg-company" placeholder="Company (optional)" class="input">
+            <select id="reg-tier" class="input">
+              <option value="free">Free (500 calls/mo)</option>
+              <option value="starter">Starter — ₹999/mo</option>
+              <option value="growth">Growth — ₹3,999/mo</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn--lg btn--primary btn--full">
+            Get My API Key
+            <span class="btn__arrow">→</span>
+          </button>
+        </form>
+        <div class="cta__result" id="register-result" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__brand">
+          <span class="nav__logo-icon">◆</span> LogiSense
+          <p class="footer__tagline">Last-Mile Delivery Intelligence API</p>
+        </div>
+        <div class="footer__links">
+          <a href="docs.html">API Docs</a>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2025 LogiSense. Built with ❤️ for logistics.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('main-nav');
+      nav.classList.toggle('nav--scrolled', window.scrollY > 50);
+    });
+
+    // Registration form
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const resultDiv = document.getElementById('register-result');
+      const btn = e.target.querySelector('button[type="submit"]');
+      
+      btn.disabled = true;
+      btn.textContent = 'Creating your account...';
+
+      try {
+        const res = await fetch('/api/v1/clients/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('reg-name').value,
+            email: document.getElementById('reg-email').value,
+            company: document.getElementById('reg-company').value || undefined,
+            tier: document.getElementById('reg-tier').value,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          resultDiv.style.display = 'block';
+          resultDiv.className = 'cta__result cta__result--success';
+          resultDiv.innerHTML = `
+            <h3>🎉 Account Created!</h3>
+            <p>Your API Key:</p>
+            <code class="api-key">${data.data.apiKey}</code>
+            <p class="api-key-warning">⚠️ Save this key now — it won't be shown again.</p>
+          `;
+          e.target.style.display = 'none';
+        } else {
+          resultDiv.style.display = 'block';
+          resultDiv.className = 'cta__result cta__result--error';
+          resultDiv.textContent = data.message || 'Registration failed';
+          btn.disabled = false;
+          btn.textContent = 'Get My API Key →';
+        }
+      } catch (err) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'cta__result cta__result--error';
+        resultDiv.textContent = 'Network error. Is the API server running?';
+        btn.disabled = false;
+        btn.textContent = 'Get My API Key →';
+      }
+    });
+
+    // Animate on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card, .step, .pricing-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

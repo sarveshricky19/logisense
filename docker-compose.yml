@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://logisense:logisense_pass@postgres:5432/logisense
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - WS_HEARTBEAT_INTERVAL=30000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: logisense
+      POSTGRES_USER: logisense
+      POSTGRES_PASSWORD: logisense_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations/001_initial.sql:/docker-entrypoint-initdb.d/001_initial.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logisense"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

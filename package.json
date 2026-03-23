@@ -1,0 +1,31 @@
+{
+  "name": "logisense",
+  "version": "1.0.0",
+  "description": "Last-Mile Delivery Intelligence API — AI-powered anomaly detection, risk scoring, and dynamic ETA prediction",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest --forceExit --detectOpenHandles",
+    "migrate": "node src/models/db.js migrate"
+  },
+  "keywords": ["logistics", "delivery", "ai", "api", "anomaly-detection", "eta-prediction"],
+  "author": "Sarvesh",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "joi": "^17.13.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.1",
+    "uuid": "^11.0.5",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
