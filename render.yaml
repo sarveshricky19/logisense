@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: logisense
+    runtime: docker
+    repo: https://github.com/sarveshricky19/logisense
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: logisense-db
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+    healthCheckPath: /health
+
+databases:
+  - name: logisense-db
+    plan: free
+    databaseName: logisense
